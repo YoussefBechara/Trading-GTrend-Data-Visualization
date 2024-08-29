@@ -1,5 +1,3 @@
-markdown
-
 # Trading Google Trends Data Visualization
 
 ## Overview
