@@ -1,3 +1,5 @@
 pytrends
 matplotlib
 yfinance
+pandas
+datetime
