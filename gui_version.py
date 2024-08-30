@@ -21,12 +21,13 @@ class VisualGTrendTrading:
         ticker_df.reset_index(drop=True, inplace=True)
         ticker_df.index = gtrend_df.index
         gtrend_df, ticker_df = gtrend_df[symbol], ticker_df.Close
+        print(gtrend_df, ticker_df)
         price_series = self.calc_profitloss_percentage(ticker_df)
         self.scaled_gtrend_df = self.scale_series(gtrend_df)
         self.scaled_price_series = self.scale_series(price_series)
         self.plot_chart(self.scaled_gtrend_df, self.scaled_price_series)
         
-    def get_ticker_historical_data(self, ticker="TSLA", period="5y", interval="1wk"):
+    def get_ticker_historical_data(self, ticker="TSLA", period="2y", interval="1wk"):
         ticker = yf.Ticker(ticker)     
         df = ticker.history(period=period, interval=interval)
         return df
@@ -35,8 +36,8 @@ class VisualGTrendTrading:
         pytrends = TrendReq(hl='en-US', tz=360)
         kw_list = [symbol]
         today = datetime.today()
-        past_5_years = today - timedelta(days=5*365)
-        start, end = f'{today.year}-{today.month}-{today.day}' , f'{past_5_years.year}-{past_5_years.month}-{past_5_years.day}'
+        past_n_year = today - timedelta(days=2*365)
+        start, end = f'{today.year}-{today.month}-{today.day}' , f'{past_n_year.year}-{past_n_year.month}-{past_n_year.day}'
         pytrends.build_payload(kw_list, cat=0, timeframe=f'{end} {start}')
         return pytrends.interest_over_time()
     
